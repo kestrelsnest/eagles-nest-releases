@@ -49,8 +49,8 @@ Get the latest release from the [Releases page](https://github.com/Bullat951/eag
 
 | Package | For | What to do |
 |---|---|---|
-| `EaglesNest-Server-<version>.zip` | the DCS server admin | copy one folder, open one port, start the server |
 | `EaglesNest-Client-<version>.zip` | each controller | unzip, start `Dcb.Client.exe` |
+| `EaglesNest-Server-<version>.zip` | the DCS server admin | not public: ask the project for it (open an issue) |
 
 Pilots need nothing: they fly as usual and hear the controller on SRS.
 
@@ -107,7 +107,7 @@ Pilots need nothing: they fly as usual and hear the controller on SRS.
 
 ## Quick start
 
-**Server admin** (details in `INSTALL.txt` inside the zip)
+**Server admin** (the server package is sent on request; details in `INSTALL.txt` inside it)
 1. Stop the DCS server and copy the contents of `copy-into-saved-games` into its Saved Games folder.
 2. Open TCP port 10309 for the controllers.
 3. Start the server. The first start writes `Config\DCB.lua` with a random password per coalition: give each side its password.

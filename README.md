@@ -45,7 +45,7 @@ shared with the pilots.
 
 ## Download
 
-Get the latest release from the [Releases page](https://github.com/Bullat951/eagles-nest-releases/releases):
+Get the latest release from the [Releases page](https://github.com/kestrelsnest/eagles-nest-releases/releases):
 
 | Package | For | What to do |
 |---|---|---|

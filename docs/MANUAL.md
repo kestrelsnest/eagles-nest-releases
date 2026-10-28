@@ -29,10 +29,18 @@ For controllers (GCI and ATC). Server installation is in `INSTALL.txt` inside th
    *Window → Map data → DCS World folder…*.
 
    ![DCS location](images/dcs-location.png)
-4. **Connection → Connect…**: the server's address, port **10309** and your coalition's
-   password (from the server admin). The password decides which side you control.
-   Tick *Remember* to keep it (stored encrypted for your Windows user only). The SRS fields in
-   the same dialog are optional (see [SRS](#10-srs)).
+4. **Connection → Connect…**: pick a server from the list and **Connect** (or double-click
+   it). **New** adds one: a name, its address, the Eagle's Nest port and the SRS port, the
+   server password (from the admin) and your SRS External AWACS Mode password. Connect saves a
+   named server; **Delete** forgets it. Saved passwords are kept encrypted for your Windows user
+   and show as "(saved)": type in the box only to change one.
+5. **Logging in.** On a server with Discord login, an **Authorize** popup opens in your Discord
+   app (Discord must be running): click it. The server checks with Discord that you hold the
+   controller role in its Discord, then that your client knows the server password — the
+   password itself never goes over the network, only a proof of it, and only after the Discord
+   check passed. Then choose **Blue** or **Red** (the side you last joined is preselected).
+   Messages tell you what went wrong: no controller role, wrong password, Discord not running.
+   Older servers (before 0.10) log in the old way: the password decides the side.
 
 The status bar shows the connection, your coalition, the mission time and how many own units
 and contacts you see.
@@ -53,8 +61,8 @@ and contacts you see.
 The main window has two tabs, **GCI** and **ATC**, each a full workspace with its own map and
 panels. **⇱** on a tab moves that workspace into a window of its own (a second screen); **⇤**, or
 closing that window, puts it back. The GCI workspace has no ATC tab and the selected airfield
-gets no approach range marks; in the ATC workspace the map shows the airfield's chart (taxiways,
-letters, stands) when you zoom in close (*Diagrams* on the map's toolbar). Panels can be docked,
+gets no approach range marks; the airfield's chart (taxiways, letters, stands) is in the ATC
+tab's own airfield view. Panels can be docked,
 tabbed, floated and moved to another screen.
 
 ## 3. Maps
@@ -83,10 +91,10 @@ Toggles: **Labels** (full / short / none), **Threat rings**, **F10 marks**, **Zo
 | **Right-drag** | ruler: magnetic bearing and range in NM; ending on an aircraft adds its altitude and aspect (BRAA) |
 | Right-click | context menu of what is under the pointer (aircraft, threat, F10 mark, or the map) |
 | Hold **B** | bullseye call of the pointer position (or press to switch on / off, see below) |
-| **R** | RWR scope for the own unit under the pointer (or the selected one) |
+| **R** | RWR ring (bearing lines from a pilot's call) for the own unit under the pointer (or the selected one) |
 | **N** | NCTR: drag a box around contacts, pick methods, Run |
 | **Alt + click** | the point as DDM, DMS, decimal, MGRS, bullseye call and elevation, with Copy |
-| Esc | closes the RWR scope or the point box |
+| Esc | closes the RWR ring or the point box |
 
 **Key bindings** (*Window → Key bindings…*): bullseye, RWR scope, NCTR, point coordinates and
 the ruler can each be put on any key (with Ctrl / Shift / Alt) or mouse button — middle, the
@@ -121,25 +129,16 @@ select and move the map; right-click always opens the menu.
 ![Triangulation](images/triangulation.png)
 
 Enemy SAMs usually do not show on the scope (they do only in missions dated 2012 or later, a
-server setting). You find them with the RWR of your aircraft (and the ESM of your ships and
-ground radars), and with the pilots' calls:
+server setting). You find them with the pilots' RWR calls (*"spiked, 3 o'clock"*):
 
-1. Put the pointer on an own unit (or select it) and press **R** — or right-click an aircraft →
-   *RWR…*. The **RWR scope** opens around it: what its warning receiver hears, from the server,
-   updated every second. Each emitter sits at its bearing (north up, the long tick is the
-   unit's nose), nearer the centre the stronger it is, with its RWR label ("6", "29", "50",
-   "S" search radar, "SH" ship). A bar over the label: airborne. Green: searching; yellow:
-   tracking this unit; red flashing: guiding a missile at it. The **mouse wheel** over the scope
-   makes it larger or smaller; labels that would overlap are moved apart, with a thin leader to
-   the dot where their bearing puts them.
-   ![RWR scope](images/rwr-scope.png)
-
-2. **Click an emitter**: a bearing line is drawn from where the unit is now, with a wedge for
-   that receiver's error (±5° ships and ground radars, ±10° aircraft, ±15° helicopters).
-   **Click anywhere else on the scope**: a line at that azimuth (±10°) — for a pilot's call
-   like *"spiked, 3 o'clock"* (the ticks are the clock positions). The pointer shows the
-   azimuth. The scope stays open for more lines; Esc or a click outside closes it. Lines are
-   labelled with bearing, emitter, callsign and time.
+1. Put the pointer on the calling aircraft (or select it) and press **R** — or right-click it →
+   *RWR…*. The **RWR ring** opens around it, turned with its nose: **12, 3, 6 and 9 o'clock**
+   are buttons, the other hours ticks. The **mouse wheel** over the ring makes it larger or
+   smaller. The server sends no RWR picture: the ring is for what the pilot tells you.
+2. **Click a clock button**: a bearing line at that clock from where the aircraft is now, with
+   a ±15° wedge (half an hour). **Click anywhere else on the ring**: a line at that azimuth
+   (±10°); the pointer shows the azimuth. The ring stays open for more lines; Esc or a click
+   outside closes it. Lines are labelled with bearing, callsign and time.
 3. Let the aircraft move (or have the pilot turn) and take the bearing again: each adds a line.
    When two or more lines of the same unit cross, a **fix** appears: a yellow cross with its
    error ellipse (±major/minor in NM) and the bullseye call. More lines, wider angles, tighter
@@ -151,9 +150,8 @@ ground radars), and with the pilots' calls:
    or **Coordinates…** to read it out on the radio (bullseye, DDM, MGRS, with Copy).
 
 **Identifying contacts.** On a server with `identification = "manual"` radar contacts arrive
-without a type ("UNK"). Right-click a contact → **Identify as**: first the RWR emitters whose
-bearings, from any of your units, pass through that contact (e.g. *"50   RWR: 16 receivers, 3°
-off"*), then every RWR label by group, or *Type a name…*. The identity goes to every controller
+without a type ("UNK"). Right-click a contact → **Identify as**: first any NCTR answers for it,
+then every RWR label by group (as pilots call them), or *Type a name…*. The identity goes to every controller
 of your coalition and shows where the type would be; a ground contact identified as a SAM ("6",
 "SA-11") gets its threat ring. *Clear identity* takes it back. Identities go when the unit dies
 or the mission changes.
@@ -244,8 +242,13 @@ Pick a carrier in the ATC list.
 
 ## 10. SRS
 
-Eagle's Nest works with the SRS client on your PC the way other controller tools do. Connect
-your SRS client in **External AWACS Mode**.
+Eagle's Nest works with the SRS client on your PC the way other controller tools do: your SRS
+client runs in **External AWACS Mode**. With the EAM password in the Connect dialog, Eagle's Nest
+does that for you when it connects: it starts the SRS app if needed, enters the server address
+(the DCB server's, at the SRS port), clicks Connect, opens External AWACS Mode, enters the
+password and connects — you see it happen in the SRS window. An SRS already connected to another
+server is left alone. Untick *Connect the SRS app in External AWACS Mode automatically* in the
+SRS tab to do it by hand; the tab shows how the last attempt went.
 
 - **Your radio position**, so SRS range and line of sight work for you: pick a place in the SRS
   tab's list — an airfield or helipad, or one of your **carriers** or **AWACS** (followed as it
@@ -278,12 +281,20 @@ your SRS client in **External AWACS Mode**.
 
 ## 12. For the server admin
 
-- Settings are in `Config\DCB.lua` in the server's Saved Games folder: the two controller
-  passwords, the port, and:
+- Settings are in `Config\DCB.lua` in the server's Saved Games folder: the port and:
+  - `password`: the server password every controller's client proves knowing (made at random
+    on the first start). Controllers choose their side after logging in. `blue_password` /
+    `red_password` are for clients before 0.10 (the password decides the side) and also work as
+    the server password.
+  - **Discord login** (optional): `discord_client_id`, `discord_secret`, `discord_guild` and
+    `discord_roles` (role IDs, in quotes; right-click a role → Copy Role ID). Make an
+    application at discord.com/developers (OAuth2 → Redirects: add `http://127.0.0.1`). The
+    server then lets in only members holding one of those roles, checks the password after
+    that, and re-checks the role every 5 minutes: a controller whose role is removed is
+    disconnected. `discord_blue_roles` / `discord_red_roles` can limit who may pick each side.
+    With Discord on, clients before 0.10 are refused. The server must reach discord.com.
   - `enemy_ground = "auto"` (with `enemy_ground_year = 2012`): enemy ground units appear on
     radar only in missions dated that year or later; `true` / `false` to force it.
-  - `rwr = true`: the server works out each own aircraft's RWR picture (and ships' and ground
-    radars' ESM) every second and sends it to that coalition only; `false` turns it off.
   - `identification = "auto"`: contacts show their type once DCS identifies them;
     `"manual"`: never — controllers identify them (section 6), shared within the coalition.
   - `nctr_year = 1985`: NCTR methods other than size class only in missions dated then or later.
@@ -295,7 +306,7 @@ your SRS client in **External AWACS Mode**.
     while flying. Players behind one router share an address: set `true` if your controllers and
     pilots do (or for testing on your own PC).
   - `analytics`, `export`: local files for statistics and a website (see
-    `INSTALL.txt`). Nothing is sent anywhere.
+    [ANALYTICS.md](ANALYTICS.md)). Nothing is sent anywhere.
 - Everything Eagle's Nest does on the server is logged in `Logs\dcs.log` under "DCB": logins,
   every controller command (text to a pilot, F10 marks) and refusals.
 - Cost: well under 1 % of one CPU core, about 22 MB of memory, and 15–40 KB/s per connected

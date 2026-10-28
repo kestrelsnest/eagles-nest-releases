@@ -5,7 +5,7 @@
 Controllers connect from their own PC to a DCS server and get a live, fog-of-war picture of
 their coalition: radar contacts, own flights, missiles, carriers and airfields. On top of that
 come the tools to run the air war and the traffic around the bases: bullseye and BRAA calls,
-the RWR picture of every own aircraft, contact identification with NCTR, triangulation of SAM
+bearing lines from pilots' RWR calls, contact identification with NCTR, triangulation of SAM
 sites, airport diagrams, approach and carrier views, SRS radio integration, and F10 map marks
 shared with the pilots.
 
@@ -22,9 +22,7 @@ shared with the pilots.
   coalition's own sensors and sent to that coalition only. An enemy aircraft no radar of yours
   holds never leaves the server, so no client can show more than the side really knows.
 - **Identification is earned, not given.** In manual mode contacts arrive as "UNK". Controllers
-  work out what they are from the **RWR picture of every own aircraft, ship and radar**
-  (computed on the server for AI and players alike, with bearing errors and line of sight) and
-  from **NCTR** on request — JEM, HRRP, ISAR, size class, rotor modulation and raid count, each
+  work out what they are from the pilots' RWR calls and from **NCTR** on request — JEM, HRRP, ISAR, size class, rotor modulation and raid count, each
   with its own range, aspect and dwell rules. A radar doing NCTR looks along a cone; what it
   holds elsewhere freezes until it is done. You decide the identity; it turns the contact red.
 - **Radars sweep.** Each of your radars refreshes what it holds at its own rate — an AWACS
@@ -39,7 +37,7 @@ shared with the pilots.
   carrier lighting control and graded LSO passes, alongside SRS integration.
 - **Light on the server.** Measured on a busy Foothold mission (Caucasus, ~250 units, 5 blue and
   18 red radars): about **6 ms of sim-thread time per second (0.6 %)** for everything —
-  picture 2.3 ms, RWR 2.0 ms, F10 marks 1.2 ms, Foothold 0.3 ms, NCTR 0.1 ms.
+  picture 2.3 ms, RWR 2.0 ms (since removed), F10 marks 1.2 ms, Foothold 0.3 ms, NCTR 0.1 ms.
 
 ---
 
@@ -65,15 +63,16 @@ Pilots need nothing: they fly as usual and hear the controller on SRS.
 - Packages (four colour-coded groups), Foothold campaign zones, credits and mission board.
 
 **RWR, identification and NCTR**
-- **R** over an own unit opens its RWR scope: the emitters it hears, live, labelled and coloured by search / track / launch. Click one for a bearing line, or any azimuth for a pilot's call; two or more lines give a fix with its error ellipse.
-- Right-click a contact → *Identify as*: NCTR answers and the RWR emitters whose bearings cross it come first.
+- **R** over an own aircraft opens its RWR ring, turned with its nose: click 12, 3, 6 or 9 o'clock (or any azimuth) for a bearing line from a pilot's call; two or more lines give a fix with its error ellipse.
+- Data blocks show altitude, speed and Mach.
+- Right-click a contact → *Identify as*: NCTR answers come first, then the RWR labels pilots call.
 - **N** + drag a box: NCTR by your AI radars (JEM, HRRP, ISAR, size, rotor, raid), with cones on the map, the methods being worked flashing beside each contact and the answer or the nearest miss.
 - Server setting `identification = "manual"`: contacts carry no type until a controller identifies them.
 
 | | |
 |---|---|
-| ![RWR scope](docs/images/rwr-scope.png) | ![NCTR](docs/images/nctr-cones.png) |
-| RWR scope with a bearing line through an identified pair | NCTR: two carriers' cones on a contact |
+| ![RWR ring](docs/images/rwr-ring.png) | ![NCTR](docs/images/nctr-cones.png) |
+| RWR ring with a 3 o'clock bearing line; Mach in the data blocks | NCTR: two carriers' cones on a contact |
 
 **Threats and F10 marks**
 - Place a threat (SA-2 … SA-19, AAA, Patriot …) and its engagement ring appears for every controller of your side.

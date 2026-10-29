@@ -294,8 +294,8 @@ SRS tab to do it by hand; the tab shows how the last attempt went.
 ## 12. DTC: data cartridges for pilots
 
 The **DTC** tab builds whole DCS data cartridges for the **F/A-18C**, **F-16C** and **F-14B(U)**
-and pushes them to your pilots. Pilots need the Eagle's Nest DTC hook (their server admin hands
-it out); nothing changes for them until you push.
+and pushes them to your pilots. Pilots need the Eagle's Nest DTC hook (`EaglesNest-Pilot` zip on
+the releases page, with the server's address set); nothing changes for them until you push.
 
 - **The jet picker** switches between the three cartridges; each jet keeps its own. **New**
   starts all three from DCS's defaults; **Open…** / **Save as…** read and write `.dtc` files
@@ -347,8 +347,9 @@ it out); nothing changes for them until you push.
   - `radar_scan = true`: each own radar refreshes its contacts at its own scan rate (section 5);
     `false`: every contact every second.
   - `dtc = true`: pilot sync — controllers can push data cartridges (section 12) to pilots who
-    have the DTC hook (`pilot\EaglesNest-DTC.lua` in the server zip, your server's address set
-    in it, copied into their `Saved Games\DCS\Scripts\Hooks`). `false` switches it off.
+    have the DTC hook (`EaglesNest-DTC.lua` from the `EaglesNest-Pilot` zip on the releases
+    page, your server's address set in it, copied into their `Saved Games\DCS\Scripts\Hooks`).
+    `false` switches it off.
   - `allow_flying_controllers = false`: **controllers don't fly** — a controller login from the
     IP address of a player sitting in a cockpit is refused, and an open controller connection is
     closed when its address takes a cockpit, so a pilot cannot watch the coalition's picture

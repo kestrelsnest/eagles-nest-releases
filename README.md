@@ -48,7 +48,7 @@ Get the latest release from the [Releases page](https://github.com/kestrelsnest/
 | Package | For | What to do |
 |---|---|---|
 | `EaglesNest-Client-<version>.zip` | each controller | unzip, start `Dcb.Client.exe` |
-| `EaglesNest-Pilot-<version>.zip` | pilots who want data cartridges | set the server's address in `EaglesNest-DTC.lua`, copy it into `Saved Games\DCS\Scripts\Hooks` |
+| `EaglesNest-Pilot-<version>.zip` | pilots who want data cartridges | list your server(s) in `EaglesNest-DTC.lua` (one file covers several), copy it into `Saved Games\DCS\Scripts\Hooks` |
 | `EaglesNest-Server-<version>.zip` | the DCS server admin | not public: ask the project for it (open an issue) |
 
 Pilots need nothing to fly with a controller: they fly as usual and hear the controller on SRS.

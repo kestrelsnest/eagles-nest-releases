@@ -299,7 +299,8 @@ SRS tab to do it by hand; the tab shows how the last attempt went.
 
 The **DTC** tab builds whole DCS data cartridges for the **F/A-18C**, **F-16C** and **F-14B(U)**
 and pushes them to your pilots. Pilots need the Eagle's Nest DTC hook (`EaglesNest-Pilot` zip on
-the releases page, with the server's address set); nothing changes for them until you push.
+the releases page, with your server's line filled in; one hook covers every Eagle's Nest server
+a pilot flies on); nothing changes for them until you push.
 
 - **The jet picker** switches between the three cartridges; each jet keeps its own. **New**
   starts all three from DCS's defaults; **Open…** / **Save as…** read and write `.dtc` files

@@ -94,7 +94,7 @@ To receive data cartridges from the DTC tab they add one small hook file, the pi
 **ATC**
 - Airport diagrams drawn from DCS data: runways, taxiway letters, stands, navaids, tower, in feet.
 - 10 NM approach view with 3° path altitudes, ILS/TACAN, inbound sequence and profile.
-- Runway queue per airfield and carrier; ATIS and airfield information sent to a pilot's screen.
+- Runway queue per airfield and carrier (add inbound jets from the map at any range); ATIS and airfield information sent to a pilot's screen.
 - Carrier view (BRC, wind over deck, marshal stack) and LSO view with graded passes.
 
 | | | |
@@ -104,6 +104,7 @@ To receive data cartridges from the DTC tab they add one small hook file, the pi
 
 **Maps and radio**
 - Base maps: Scope, Satellite (online), DCS Map, DCS Charts and DCS Satellite (from your DCS install).
+  The dark Scope map shows faint terrain relief, rivers and main roads for orientation.
 - SRS: tunes your own SRS client, gives SRS your position for range and line of sight, and listens to the SRS server to show who is on which frequency and who is talking.
 - Several windows and screens, dark and light themes, layouts kept between sessions.
 

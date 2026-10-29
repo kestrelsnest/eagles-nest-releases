@@ -72,7 +72,7 @@ The map toolbar picks the **base map** and what is drawn on it.
 
 | Base map | Source | Notes |
 |---|---|---|
-| Scope | built in (Natural Earth coastlines and borders) | always available, fastest |
+| Scope | built in (Natural Earth coastlines and borders), the server's terrain; rivers and main roads from your DCS install | dark: faint height bands with hill shading, rivers and main roads appearing as you zoom in. Fastest |
 | Satellite | Esri World Imagery, online | needs internet |
 | DCS Map | your DCS install | DCS's F10 look: relief, land cover, roads, MGRS grid. Drawn once in the background on first use (about 2 minutes per terrain), then instant |
 | DCS Charts | your DCS install | ED's raster charts |
@@ -234,8 +234,10 @@ Pick an airfield (or carrier) in the ATC panel's list.
 
   ![Approach](images/atc-approach.png)
 - **Runway queue** (right of the views): the order for the runway. Suggested arrivals and
-  departures appear below; ▲▼ to move, priority, arrival/departure, ✕ to remove. Queued aircraft
-  show "#n" on the scopes. It is your own planning board; pilots do not see it.
+  departures (closing within 15 NM) appear below; ▲▼ to move, priority, arrival/departure, ✕ to
+  remove. Farther out, right-click an own aircraft on any map → *Add to <base> landing queue*: the
+  base the ATC tab shows, else the nearest airfield. Queued aircraft show "#n" on the scopes. It
+  is your own planning board; pilots do not see it.
 - **Set CH6**: tunes your SRS channel 6 to the airfield's tower frequency.
 - **ATIS…** / **Airfield info…**: built from the server's live weather and the airfield,
   editable, sent as an on-screen text to a pilot.

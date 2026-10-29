@@ -126,7 +126,9 @@ select and move the map; right-click always opens the menu.
   launch after another, never over each other), rings the target in blinking red and shows a
   banner along the top of the map ("MISSILE LAUNCH at Kestrel F-16C (+1) · Space jumps") until
   the missile is gone. **Space** centres the GCI map on the target (and selects it): the newest
-  launch first, the older ones on the next presses. *Window → Launch alarm for AI too* includes AI
+  launch first, the older ones on the next presses. *Window → Launch alarm*: **Sound** on/off,
+  **Volume** (Quiet, Normal, Loud), **Alarms per launch** (1–3), **Test sound**; kept between
+  sessions. The banner and ring show with the sound off too. *For AI aircraft too* includes AI
   aircraft (for testing; off again at the next start).
 - **Bullseye**: hold B over the map for "BE 247/38"; the ruler gives BRAA on any aircraft.
 - **Packages**: right-click an own aircraft → *Add to package* P1–P4. Members get the package's

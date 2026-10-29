@@ -50,7 +50,8 @@ Get the latest release from the [Releases page](https://github.com/kestrelsnest/
 | `EaglesNest-Client-<version>.zip` | each controller | unzip, start `Dcb.Client.exe` |
 | `EaglesNest-Server-<version>.zip` | the DCS server admin | not public: ask the project for it (open an issue) |
 
-Pilots need nothing: they fly as usual and hear the controller on SRS.
+Pilots need nothing: they fly as usual and hear the controller on SRS. To receive data cartridges
+from the DTC tab they add one small hook file (in the server package, from the server admin).
 
 ---
 
@@ -61,6 +62,11 @@ Pilots need nothing: they fly as usual and hear the controller on SRS.
 - Speed vectors, data blocks, threat rings, missiles in flight (own, and enemy ones aimed at you).
 - Bullseye call under the cursor, right-drag ruler with bearing / range / BRAA, coordinates in DDM, DMS, MGRS.
 - Packages (four colour-coded groups), Foothold campaign zones, credits and mission board.
+- Missiles show altitude and Mach; a missile fired at one of your players sounds an alarm and **Space** jumps to it.
+
+**DTC: data cartridges for your pilots**
+- Build whole DCS data cartridges for the **F/A-18C**, **F-16C** and **F-14B(U)** on the map: waypoints and routes with leg distances, GPS / DEST points, threat rings, lines, CAPs, radios, CMDS, RWR, HARM, JDAM targets and more, in DCS's own formats and limits.
+- One plan for all three jets, or each its own. **Push** to pilots or packages: each gets the cartridge of the jet they fly, also in the spawn dialog with dynamic slots.
 
 **RWR, identification and NCTR**
 - **R** over an own aircraft opens its RWR ring, turned with its nose: click 12, 3, 6 or 9 o'clock (or any azimuth) for a bearing line from a pilot's call; two or more lines give a fix with its error ellipse.
@@ -109,12 +115,12 @@ Pilots need nothing: they fly as usual and hear the controller on SRS.
 **Server admin** (the server package is sent on request; details in `INSTALL.txt` inside it)
 1. Stop the DCS server and copy the contents of `copy-into-saved-games` into its Saved Games folder.
 2. Open TCP port 10309 for the controllers.
-3. Start the server. The first start writes `Config\DCB.lua` with a random password per coalition: give each side its password.
+3. Start the server. The first start writes `Config\DCB.lua` with a random server password: give it to your controllers (Discord role login is optional).
 
 **Controller** (details in `CLIENT.txt` inside the zip)
 1. Install the [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0) (x64) once.
 2. Start `Dcb.Client.exe`. On the first start it finds your DCS World install and asks you to confirm it.
-3. Connection → Connect: server address, port 10309, your coalition's password.
+3. Connection → Connect → New: server address, port 10309, the server password; then choose Blue or Red.
 
 Then read the **[Operations manual](docs/MANUAL.md)**.
 

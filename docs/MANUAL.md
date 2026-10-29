@@ -13,8 +13,9 @@ For controllers (GCI and ATC). Server installation is in `INSTALL.txt` inside th
 - [9. Carrier and LSO](#9-carrier-and-lso)
 - [10. SRS](#10-srs)
 - [11. Several screens, themes, layout](#11-several-screens-themes-layout)
-- [12. For the server admin](#12-for-the-server-admin)
-- [13. Troubleshooting](#13-troubleshooting)
+- [12. DTC: data cartridges for pilots](#12-dtc-data-cartridges-for-pilots)
+- [13. For the server admin](#13-for-the-server-admin)
+- [14. Troubleshooting](#14-troubleshooting)
 
 ---
 
@@ -58,8 +59,8 @@ and contacts you see.
 | **ATC** | airfields and carriers, diagram, approach, carrier and LSO views, runway queue — in the ATC tab, or on demand with *Window → ATC* |
 | **SRS** | your radios, who is on which frequency, who is talking, and the list (airfields, carriers, AWACS) that sets where your radio stands |
 
-The main window has two tabs, **GCI** and **ATC**, each a full workspace with its own map and
-panels. **⇱** on a tab moves that workspace into a window of its own (a second screen); **⇤**, or
+The main window has three tabs, **GCI**, **ATC** and **DTC** (section 12), each a full workspace
+with its own map and panels. **⇱** on a tab moves that workspace into a window of its own (a second screen); **⇤**, or
 closing that window, puts it back. The GCI workspace has no ATC tab and the selected airfield
 gets no approach range marks; the airfield's chart (taxiways, letters, stands) is in the ATC
 tab's own airfield view. Panels can be docked,
@@ -94,10 +95,12 @@ Toggles: **Labels** (full / short / none), **Threat rings**, **F10 marks**, **Zo
 | **R** | RWR ring (bearing lines from a pilot's call) for the own unit under the pointer (or the selected one) |
 | **N** | NCTR: drag a box around contacts, pick methods, Run |
 | **Alt + click** | the point as DDM, DMS, decimal, MGRS, bullseye call and elevation, with Copy |
+| **Space** | while a missile is in flight at one of your players: centre the GCI map on its target — the newest launch first, then the older ones |
+| **D** | DTC tab: right-click adds points ↔ deletes them |
 | Esc | closes the RWR ring or the point box |
 
-**Key bindings** (*Window → Key bindings…*): bullseye, RWR scope, NCTR, point coordinates and
-the ruler can each be put on any key (with Ctrl / Shift / Alt) or mouse button — middle, the
+**Key bindings** (*Window → Key bindings…*): bullseye, RWR scope, NCTR, point coordinates, the
+ruler, the launch jump and the DTC add/delete switch can each be put on any key (with Ctrl / Shift / Alt) or mouse button — middle, the
 side buttons 4 and 5, or a click with a modifier. *Change*, then press the key or click the
 button; *Reset to defaults* puts B, R, N, Alt + click and right-drag back. A tick switches the
 bullseye call from "while held" to "press on, press off". Plain left click and drag always
@@ -113,9 +116,18 @@ select and move the map; right-click always opens the menu.
   radar every 4 s, an Aegis ship every second. A contact moves in steps when a radar paints it;
   one held by several radars is refreshed by each of them in turn, so it updates more often.
   Near the edge of a radar's range a sweep can miss. A contact no radar has painted for 15 s or
-  more shows its age in the data block ("250 450 18s").
-- **Threat rings** around known enemy SAM sites; **missiles** in flight with a trail and a line
-  to the target — yours always, enemy ones when fired at your units ("MSL").
+  more shows its age in the data block ("250 450 18s"). An aircraft's radar sees only ahead,
+  within its own limits from DCS (an F-16 about 60° either side of the nose): a contact behind a
+  fighter is not painted by it. AWACS, ships and ground radars see all round.
+- **Threat rings** around known enemy SAM sites; **missiles** in flight with a trail, a line
+  to the target, altitude and Mach ("AIM_120C 25k M2.8") — yours always, enemy ones when fired
+  at your units ("MSL").
+- **Launch alarm**: an enemy missile fired at one of your **players** sounds two short alarms (one
+  launch after another, never over each other), rings the target in blinking red and shows a
+  banner along the top of the map ("MISSILE LAUNCH at Kestrel F-16C (+1) · Space jumps") until
+  the missile is gone. **Space** centres the GCI map on the target (and selects it): the newest
+  launch first, the older ones on the next presses. *Window → Launch alarm for AI too* includes AI
+  aircraft (for testing; off again at the next start).
 - **Bullseye**: hold B over the map for "BE 247/38"; the ruler gives BRAA on any aircraft.
 - **Packages**: right-click an own aircraft → *Add to package* P1–P4. Members get the package's
   colour and tag on every map; the Packages panel holds each package's name and frequency.
@@ -279,7 +291,41 @@ SRS tab to do it by hand; the tab shows how the last attempt went.
 - Windows, panels and map settings come back on the next start; *Window → Save layout* saves
   them now, *Window → Reset layout* restores the default.
 
-## 12. For the server admin
+## 12. DTC: data cartridges for pilots
+
+The **DTC** tab builds whole DCS data cartridges for the **F/A-18C**, **F-16C** and **F-14B(U)**
+and pushes them to your pilots. Pilots need the Eagle's Nest DTC hook (their server admin hands
+it out); nothing changes for them until you push.
+
+- **The jet picker** switches between the three cartridges; each jet keeps its own. **New**
+  starts all three from DCS's defaults; **Open…** / **Save as…** read and write `.dtc` files
+  (DCS's DTC manager opens them too).
+- **Same points for every jet**: the route, the free points (GPS / DEST / additional points),
+  lines and threat rings you draw for one jet go into the other two; each keeps its own settings
+  and its points' details. What does not fit a jet's limits is cut, and the tab says what.
+  The F-14 gets the shared route in flight plan 2 (plan 1 is the mission's).
+- **On the map** (DTC tab only): **right-click** adds a point of the open tab (a waypoint, a GPS
+  point, a threat ring, a line point…), through any markers under it; right-click on a point
+  opens its menu. **Left-drag** pans, or moves the point under it. **Ctrl / Shift** picks several,
+  and dragging moves them all. **D** switches right-click to deleting. Routes are drawn with each
+  leg's length in NM.
+- **Waypoints / Routes**: drag in the list to reorder (renumbers); **Build Route 1 / 2 / 3** makes
+  a route from the list's order (at most 15 points); altitude, speed and labels per point.
+- **Departure** + **Apply**: the F/A-18C's TACAN (and ICLS for a carrier) from that field or ship,
+  and waypoint 1 on it; for the F-16C and F-14 the first steerpoint / waypoint.
+- **Sections**: F/A-18C — waypoints, routes, NAV settings, COMM 1/2 (*Fill from mission* takes your
+  side's AWACS, tankers and towers), GPS, SA (threat rings, CAPs, corridors, FAOR, FLOT; *From
+  picture* adds the threats your side knows), HARM, CMDS, RWR, TACAN. F-16C — steerpoints with
+  offset aimpoints, DEST, threats, geographic lines, VIP / VRP, COMM, CMDS, RWR, ROE, colours.
+  F-14B(U) — flight plans 1–12, waypoints, lines, additional points, JDAM targets with their launch
+  zones, CMDS, TIS. Formats and limits are DCS's own.
+- **Send to** + **Push**: tick pilots (or packages); each gets the cartridge of the jet they fly,
+  and a pilot still in the spawn dialog (dynamic slots) gets all three. It replaces their
+  EaglesNest cartridge, arrives within about 10 s per jet, and a pilot already in the air sees a
+  short message. The pilot loads it with **DTC** in the spawn dialog or briefing:
+  `EaglesNest_FA-18C_hornet`, `EaglesNest_F-16C_50` or `EaglesNest_F-14BU`.
+
+## 13. For the server admin
 
 - Settings are in `Config\DCB.lua` in the server's Saved Games folder: the port and:
   - `password`: the server password every controller's client proves knowing (made at random
@@ -300,6 +346,9 @@ SRS tab to do it by hand; the tab shows how the last attempt went.
   - `nctr_year = 1985`: NCTR methods other than size class only in missions dated then or later.
   - `radar_scan = true`: each own radar refreshes its contacts at its own scan rate (section 5);
     `false`: every contact every second.
+  - `dtc = true`: pilot sync — controllers can push data cartridges (section 12) to pilots who
+    have the DTC hook (`pilot\EaglesNest-DTC.lua` in the server zip, your server's address set
+    in it, copied into their `Saved Games\DCS\Scripts\Hooks`). `false` switches it off.
   - `allow_flying_controllers = false`: **controllers don't fly** — a controller login from the
     IP address of a player sitting in a cockpit is refused, and an open controller connection is
     closed when its address takes a cockpit, so a pilot cannot watch the coalition's picture
@@ -312,7 +361,7 @@ SRS tab to do it by hand; the tab shows how the last attempt went.
 - Cost: well under 1 % of one CPU core, about 22 MB of memory, and 15–40 KB/s per connected
   controller after a one-off 12 MB download on login.
 
-## 13. Troubleshooting
+## 14. Troubleshooting
 
 | Problem | Check |
 |---|---|

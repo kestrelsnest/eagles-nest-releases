@@ -27,7 +27,7 @@ For controllers (GCI and ATC). Server installation is in `INSTALL.txt` inside th
    folders on every disk) and shows what it found. Pick the right one and **Use this folder**,
    **Browse…** to another, or **Continue without DCS**. Without DCS everything works except the
    DCS base maps and the airfield details read from DCS. Change it later in
-   *Window → Map data → DCS World folder…*.
+   *Settings → General → DCS World folder…*.
 
    ![DCS location](images/dcs-location.png)
 4. **Connection → Connect…**: pick a server from the list and **Connect** (or double-click
@@ -78,7 +78,11 @@ The map toolbar picks the **base map** and what is drawn on it.
 | DCS Charts | your DCS install | ED's raster charts |
 | DCS Satellite | your DCS install | DCS's own ground imagery, down to about 1 m per pixel |
 
-Toggles: **Labels** (full / short / none), **Threat rings**, **F10 marks**, **Zones**,
+Toggles: **Labels** (full: name, type, altitude, speed, Mach; short: type and altitude, "F16C 250↑",
+a flight "2× F16C 250"; none — whatever is set, every contact within 10 NM of the mouse (Settings → General) shows its full label),
+**Label pos** (above / beside the vector). Aircraft flown by people have a dot in their symbol and
+their name on a plate in the aircraft's colour, above the type and altitude. **Threat rings**, **F10 marks**, **TGP** (pilots'
+designations, section 5), **Zones**,
 **Airfields**, **Ground units**, **Landed** aircraft, and **Brightness** of the base map
 (symbols stay bright). **Fit picture** zooms to everything you see.
 
@@ -90,6 +94,8 @@ Toggles: **Labels** (full / short / none), **Threat rings**, **F10 marks**, **Zo
 | Wheel | zoom |
 | Click | select a track (or a Foothold zone) |
 | **Right-drag** | ruler: magnetic bearing and range in NM; ending on an aircraft adds its altitude and aspect (BRAA) |
+| **Left click while right-dragging** | makes the BRAA line an **engagement line**: it stays on every map, follows both tracks and joins the Engagements panel. Between two aircraft the start is the interceptor: an orange ✕ marks the collision intercept at both current speeds, with "ICPT 2:40  HDG 045°" (time, heading to fly) in orange beside it; "NO ICPT" in the BRAA box when it cannot catch up. Right-click the line: intercept point on/off, marker 1–8, remove (or all). BRAA and intercept boxes sit where they cover no label, symbol or other box |
+| **Left-drag a data block** | moves it; it stays there while that flight lasts. A click on a block selects its lead |
 | Right-click | context menu of what is under the pointer (aircraft, threat, F10 mark, or the map) |
 | Hold **B** | bullseye call of the pointer position (or press to switch on / off, see below) |
 | **R** | RWR ring (bearing lines from a pilot's call) for the own unit under the pointer (or the selected one) |
@@ -99,7 +105,7 @@ Toggles: **Labels** (full / short / none), **Threat rings**, **F10 marks**, **Zo
 | **D** | DTC tab: right-click adds points ↔ deletes them |
 | Esc | closes the RWR ring or the point box |
 
-**Key bindings** (*Window → Key bindings…*): bullseye, RWR scope, NCTR, point coordinates, the
+**Key bindings** (*Settings → Keys*): bullseye, RWR scope, NCTR, point coordinates, the
 ruler, the launch jump and the DTC add/delete switch can each be put on any key (with Ctrl / Shift / Alt) or mouse button — middle, the
 side buttons 4 and 5, or a click with a modifier. *Change*, then press the key or click the
 button; *Reset to defaults* puts B, R, N, Alt + click and right-drag back. A tick switches the
@@ -126,11 +132,44 @@ select and move the map; right-click always opens the menu.
   launch after another, never over each other), rings the target in blinking red and shows a
   banner along the top of the map ("MISSILE LAUNCH at Kestrel F-16C (+1) · Space jumps") until
   the missile is gone. **Space** centres the GCI map on the target (and selects it): the newest
-  launch first, the older ones on the next presses. *Window → Launch alarm*: **Sound** on/off,
+  launch first, the older ones on the next presses. *Settings → Alerts*: **Sound** on/off,
   **Volume** (Quiet, Normal, Loud), **Alarms per launch** (1–3), **Test sound**; kept between
   sessions. The banner and ring show with the sound off too. *For AI aircraft too* includes AI
   aircraft (for testing; off again at the next start).
+- **Pilots' designations (TGP)**: switch a map's **TGP** button on to listen. F-16 and F/A-18C
+  pilots with the Eagle's Nest pilot hook and its export script (pilot zip, PILOT.txt) send what
+  their targeting pod is looking at, every 3.5 s: a cyan diamond with "Kestrel · TGP POINT · 0:20"
+  (a Hornet's ATFLIR: "Hornet · FLIR SCENE · 0:05", only while the pod tracks) and its
+  bullseye call. With an emitter designated on their HAD page the pod slaves to it and the HTS
+  error ellipse comes too ("HTS 2 PGM2 3.5 NM", long along the pilot's line of sight). Every
+  emitter a pilot designates stays for 10 minutes, numbered per pilot, so a pilot stepping through
+  the HAD builds the picture for you (the HAD's own symbols cannot be read); the centre dot marks
+  what the pod points at now. PGM1 needs TDOA: three or more HTS F-16s in one flight. Right-click
+  → *Place threat here* puts a threat on it (the designation goes), *Clear* hides it until the
+  pilot designates elsewhere. Faded after 2 minutes, gone after 10.
 - **Bullseye**: hold B over the map for "BE 247/38"; the ruler gives BRAA on any aircraft.
+- **Tags**: right-click an object in Objects → *Set tag…*: up to 10 characters ("LEAD", "NO SRS")
+  shown as a pink chip on top of its data block on every map, and in the Tag column. Only you see
+  them. A player's tag follows the player (their name) through respawns and is kept for the next
+  session; others last the session.
+- **Engagements** (Window → Engagements): every engagement line, with launches at your players on
+  top in red (missile, target, range, closure, time to impact). A line shows its marker (1–8, one
+  line per marker), from → to, range, BRA (magnetic), closure, the intercept time and heading, an
+  **Alert NM** box and an ICPT pt box (draw the intercept point or not). With an alert set, a short quiet
+  warning (three short ticks, unlike the launch warble) sounds once when the range closes
+  to it, the row turns red while inside, and it re-arms when the range opens 2 NM past it. A line whose contact is
+  lost (no radar holds it any more) is dropped. Rows
+  sort by range, or with an alert by the range left to it. Double-click a row, or press its
+  marker's number **1–8** anywhere in the client (not while typing), and the map you used last
+  shows both ends of the line (a launch: its target).
+- **Flights and data blocks**: aircraft of one side flying together (within 1.5 NM, 1000 ft, 50 kt and
+  30° of each other, chained) share one data block: a line per member ("Bullat95 F16C", or for
+  contacts "2× MiG29") and the lead's altitude line. When they split, each gets its own block.
+  **Label pos** (map toolbar) sets where a moving aircraft's label goes: *Above* (default) keeps it
+  above the aircraft on the side behind it, at the same height while it turns (it swaps sides only
+  once the heading is well past north or south); *Vector* puts it beside the speed vector. Either
+  way a label never covers a vector, a symbol or another label, and keeps its spot while that is
+  clear, so it moves only when something would cover it. Drag one to put it elsewhere.
 - **Packages**: right-click an own aircraft → *Add to package* P1–P4. Members get the package's
   colour and tag on every map; the Packages panel holds each package's name and frequency.
 - **Messages to pilots**: right-click an own player's aircraft → *Send ATIS / airfield info*: the
@@ -263,20 +302,25 @@ client runs in **External AWACS Mode**. With the EAM password in the Connect dia
 does that for you when it connects: it starts the SRS app if needed, enters the server address
 (the DCB server's, at the SRS port), clicks Connect, opens External AWACS Mode, enters the
 password and connects — you see it happen in the SRS window. An SRS already connected to another
-server is left alone. Untick *Connect the SRS app in External AWACS Mode automatically* in the
-SRS tab to do it by hand; the tab shows how the last attempt went.
+server is left alone. Untick *Connect the SRS app in External AWACS Mode automatically* in
+*Settings → SRS* to do it by hand; it shows how the last attempt went. The SRS state is one line on
+the status bar at the bottom (click it for Settings → SRS).
 
-- **Your radio position**, so SRS range and line of sight work for you: pick a place in the SRS
-  tab's list — an airfield or helipad, or one of your **carriers** or **AWACS** (followed as it
+- **Your radio position**, so SRS range and line of sight work for you: the SRS tab shows it in
+  one line (*Change…*); pick a place in *Settings → SRS* — an airfield or helipad, or one of your **carriers** or **AWACS** (followed as it
   moves; an AWACS at its altitude, so you hear as far as it would) — or a fixed point. Filters
   above the list: Airfields, Helipads, Carriers, AWACS, and Blue / Red / Neutral; *Find* searches
-  names and callsigns. Picking an airfield in the ATC tab works too. Line-of-sight questions from
-  SRS are answered from the terrain.
+  names and callsigns. Picking an airfield in the ATC tab works too. Right-click a player (map or
+  Objects) → *Radio to best spot*: your radio moves to the nearest own airfield, carrier or AWACS
+  with terrain line of sight to that aircraft (the item names it; "no line of sight from any" when
+  none has). Line-of-sight questions from SRS are answered from the terrain.
 - **Transmit range on the maps**: light blue where an aircraft at the chosen altitude (default
-  10,000 ft, set in the SRS tab) hears you, mountains included — the clear gaps are terrain
+  10,000 ft, set in Settings → SRS) hears you, mountains included — the clear gaps are terrain
   shadows — and a dashed circle at the radio horizon. It follows a carrier or AWACS as it moves.
 - **Tuning**: type a frequency or use the airfield's tower frequencies. Channel plan: CH6 = ATC,
-  CH7–CH10 = packages P1–P4 (set from the Packages panel), CH1–5 free.
+  CH7–CH10 = packages P1–P4 (set from the Packages panel), CH1–5 free. **Save as default** keeps
+  your ten channels: whenever the SRS app connects, Eagle's Nest tunes them in instead of the
+  app's own presets.
 - **Listen**: Eagle's Nest can also join the SRS server itself, receive-only (others see
   "DCB (listen)"). It then lists your coalition's frequencies and who is on each, marks who is
   talking (in the list and with pulsing rings on the map), and right-clicking a player offers
@@ -290,10 +334,28 @@ SRS tab to do it by hand; the tab shows how the last attempt went.
   of its own, e.g. ATC on a second screen; it keeps its panels and comes back as a tab with ⇤
   or by closing its window. *Window → New tab* adds another GCI or ATC workspace.
 - *Window → ATC views* opens the Diagram, Approach, Carrier or LSO view as a panel of its own.
-- *Window → Theme*: System, Dark or Light. The scopes stay dark and the airport diagram stays
+- **Settings** (top menu): theme, map data, key bindings, alarms and SRS in one window.
+- *Settings → General → Theme*: System, Dark or Light. The scopes stay dark and the airport diagram stays
   white.
 - Windows, panels and map settings come back on the next start; *Window → Save layout* saves
   them now, *Window → Reset layout* restores the default.
+
+### Stream Deck
+
+The **Eagle's Nest** Stream Deck plugin (`EaglesNest-StreamDeck-<version>.zip`: double-click the
+`.streamDeckPlugin` to install it) talks to the client on this PC (`localhost:47810`, Settings
+file `DeckPort`). Double-click **Eagle's Nest.streamDeckProfile** to import the Stream Deck XL page:
+
+| Row | Keys |
+|---|---|
+| 1 | **Engagements 1–8**: the line with that marker — range, ⚑ alert, target; green far, amber within its Alert + 10 NM (no alert: 20–40 NM), red inside (blinking); press: the map shows both ends |
+| 2 | **CH1–CH5**, **Labels** (Full → Short → None), **Label pos**, **GCI / ATC** |
+| 3 | **CH6–CH10** (frequency, role badge: ATC green, packages in their colours; orange frame = selected, pulsing red = transmitting; press: transmit), **Players only** (hold: GCI maps show only people's aircraft) |
+| 4 | **Filters**: Ground, Landed, Threat rings, F10 marks, TGP, Zones, Airfields (lit when on) |
+
+Labels, label position, filters and Players only act on every GCI map. Keys can also be placed by
+hand from the *Eagle's Nest* category (Engagement, SRS channel and Map filter keys pick their number
+or filter in the key's settings). With the client closed the keys say "DCB offline".
 
 ## 12. DTC: data cartridges for pilots
 
@@ -374,7 +436,7 @@ a pilot flies on); nothing changes for them until you push.
 | "Wrong password" | the password decides the coalition; ask the admin which one is yours |
 | "Refused: your address is in a cockpit" | controllers don't fly: leave the cockpit (spectators are fine), or the admin sets `allow_flying_controllers = true` |
 | Cannot connect | server address and port 10309, the server's firewall, the server actually running a mission |
-| No DCS Map / Charts / Satellite in the list or they stay empty | *Window → Map data → DCS World folder…*; the terrain must be installed in your DCS |
+| No DCS Map / Charts / Satellite in the list or they stay empty | *Settings → General → DCS World folder…*; the terrain must be installed in your DCS |
 | DCS Map slow the first time | it is drawn once per terrain in the background (about 2 minutes), then instant |
 | No enemy SAMs on the scope | normal for missions before 2012: triangulate them (section 6) |
 | Nothing in the SRS tab | SRS client running and connected in External AWACS Mode |

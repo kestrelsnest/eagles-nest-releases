@@ -48,7 +48,8 @@ Get the latest release from the [Releases page](https://github.com/kestrelsnest/
 | Package | For | What to do |
 |---|---|---|
 | `EaglesNest-Client-<version>.zip` | each controller | unzip, start `Dcb.Client.exe` |
-| `EaglesNest-Pilot-<version>.zip` | pilots who want data cartridges | list your server(s) in `EaglesNest-DTC.lua` (one file covers several), copy it into `Saved Games\DCS\Scripts\Hooks` |
+| `EaglesNest-Pilot-<version>.zip` | pilots who want data cartridges (and F-16 / Hornet pilots who share their targeting pod point) | list your server(s) in `EaglesNest-DTC.lua` (one file covers several), copy it into `Saved Games\DCS\Scripts\Hooks`; optional `EaglesNest-Export.lua` (see `PILOT.txt`) |
+| `EaglesNest-StreamDeck-<version>.zip` | controllers with a Stream Deck | double-click the `.streamDeckPlugin`, then the XL profile |
 | `EaglesNest-Server-<version>.zip` | the DCS server admin | not public: ask the project for it (open an issue) |
 
 Pilots need nothing to fly with a controller: they fly as usual and hear the controller on SRS.
@@ -64,6 +65,17 @@ To receive data cartridges from the DTC tab they add one small hook file, the pi
 - Bullseye call under the cursor, right-drag ruler with bearing / range / BRAA, coordinates in DDM, DMS, MGRS.
 - Packages (four colour-coded groups), Foothold campaign zones, credits and mission board.
 - Missiles show altitude and Mach; a missile fired at one of your players sounds an alarm and **Space** jumps to it.
+- Flights in formation share one label; labels never cover symbols, vectors or each other and stay steady through turns; contacts near the mouse show their full label; players get a name plate; short tags on any object.
+
+**Engagements**
+- A left click while right-dragging the ruler pins a BRAA line as an engagement: it follows both aircraft and shows the collision intercept point, time and heading.
+- The Engagements panel lists them with launches at your players on top, an alert distance that sounds a short warning, and markers 1–8: press 1–8 (or a Stream Deck key) and the map shows that engagement.
+
+**Pilots' targeting pods**
+- F-16 pilots with the export script share their TGP point and, with an emitter designated on the HAD, its HTS error ellipse and PGM grade (PGM1 with TDOA); every emitter they designate stays on the map for 10 minutes. F/A-18C pilots share their ATFLIR point.
+
+**Stream Deck**
+- Plugin and Stream Deck XL page: engagement keys 1–8 coloured by range, your ten SRS channels with frequency and transmit highlight, labels, label position, GCI/ATC, map filters and a hold-to-show "players only".
 
 **DTC: data cartridges for your pilots**
 - Build whole DCS data cartridges for the **F/A-18C**, **F-16C** and **F-14B(U)** on the map: waypoints and routes with leg distances, GPS / DEST points, threat rings, lines, CAPs, radios, CMDS, RWR, HARM, JDAM targets and more, in DCS's own formats and limits.
@@ -105,7 +117,8 @@ To receive data cartridges from the DTC tab they add one small hook file, the pi
 **Maps and radio**
 - Base maps: Scope, Satellite (online), DCS Map, DCS Charts and DCS Satellite (from your DCS install).
   The dark Scope map shows faint terrain relief, rivers and main roads for orientation.
-- SRS: tunes your own SRS client, gives SRS your position for range and line of sight, and listens to the SRS server to show who is on which frequency and who is talking.
+- SRS: tunes your own SRS client (default channels kept for every start), gives SRS your position for range and line of sight (or moves it to the best spot for a player), and listens to the SRS server to show who is on which frequency and who is talking.
+- One Settings window for theme, map data, keys, alarms and SRS.
 - Several windows and screens, dark and light themes, layouts kept between sessions.
 
 ![DCS Satellite](docs/images/dcs-satellite.png)

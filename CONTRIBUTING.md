@@ -4,7 +4,7 @@ Thank you for helping. Bug reports, ideas, translations, screenshots and code ar
 
 ## Reporting a bug or an idea
 
-Open an [issue](https://github.com/kestrelsnest/overseer-releases/issues) with what you did,
+Open an [issue](https://github.com/kestrelsnest/eagles-nest-releases/issues) with what you did,
 what you expected and what happened. For a server problem, add the `DCB (Main)` lines from the
 server's `dcs.log` — and remove passwords, IP addresses and player names first.
 

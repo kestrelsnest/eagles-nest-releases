@@ -11,7 +11,7 @@ talk on SRS, all from one screen.
 ![Overseer GCI workspace](docs/images/hero.png)
 
 <p align="center">
-<a href="https://github.com/kestrelsnest/overseer-releases/releases"><b>Download</b></a> ·
+<a href="https://github.com/kestrelsnest/eagles-nest-releases/releases"><b>Download</b></a> ·
 <a href="docs/MANUAL.md"><b>Manual</b></a> ·
 <a href="#support-the-project"><b>Support the project</b></a>
 </p>
@@ -39,7 +39,7 @@ talk on SRS, all from one screen.
 
 ### Run it on your server (admins)
 1. Download `Overseer-Server-<version>.zip` from the
-   [Releases page](https://github.com/kestrelsnest/overseer-releases/releases).
+   [Releases page](https://github.com/kestrelsnest/eagles-nest-releases/releases).
 2. Stop the DCS server and copy the contents of `copy-into-saved-games` into its Saved Games folder.
 3. Open TCP port 10309 for your controllers.
 4. Start the server. The first start writes `Config\DCB.lua` with a random password.
@@ -123,7 +123,7 @@ whole package. Each pilot gets the cartridge of the jet they fly.
 
 Overseer is built and run on the **Kestrel's Nest** servers — come and see it live.
 
-**Running Overseer on your server?** [Tell us](https://github.com/kestrelsnest/overseer-releases/issues)
+**Running Overseer on your server?** [Tell us](https://github.com/kestrelsnest/eagles-nest-releases/issues)
 and you can be listed here.
 <!-- Servers on the Patreon "Server" tier are listed here. -->
 
@@ -134,7 +134,7 @@ and you can be listed here.
 Overseer is free, and it stays free — every feature, for every server.
 A Patreon page and a Ko-fi coffee button are coming soon for those who want to help keep it going.
 
-Bug reports and ideas are welcome: [open an issue](https://github.com/kestrelsnest/overseer-releases/issues).
+Bug reports and ideas are welcome: [open an issue](https://github.com/kestrelsnest/eagles-nest-releases/issues).
 
 ---
 

@@ -1,150 +1,153 @@
-# Eagle's Nest
+# Overseer
+*by Kestrel's Nest Community*
 
-**An ATC / GCI controller station for DCS World multiplayer servers.**
+**A GCI and ATC controller station for DCS World multiplayer servers. Free and open source.**
+<sub>Formerly known as Eagle's Nest.</sub>
 
-Controllers connect from their own PC to a DCS server and get a live, fog-of-war picture of
-their coalition: radar contacts, own flights, missiles, carriers and airfields. On top of that
-come the tools to run the air war and the traffic around the bases: bullseye and BRAA calls,
-bearing lines from pilots' RWR calls, contact identification with NCTR, triangulation of SAM
-sites, airport diagrams, approach and carrier views, SRS radio integration, and F10 map marks
-shared with the pilots.
+Your controllers sit at their own PC and see what your coalition's radars see — no more. They
+call BRAA and bullseye, run intercepts, identify contacts, work the tower and the carrier and
+talk on SRS, all from one screen.
 
-![GCI workspace](docs/images/gci-workspace.png)
+![Overseer GCI workspace](docs/images/hero.png)
 
-> This repository holds the releases and the manual. Inside the files the project is still
-> called **DCB** (`dcb.dll`, `DCB-hook.lua`, `Config\DCB.lua`).
-
----
-
-## What makes it different
-
-- **The server decides what each side sees.** The picture is built on the DCS server from your
-  coalition's own sensors and sent to that coalition only. An enemy aircraft no radar of yours
-  holds never leaves the server, so no client can show more than the side really knows.
-- **Identification is earned, not given.** In manual mode contacts arrive as "UNK". Controllers
-  work out what they are from the pilots' RWR calls and from **NCTR** on request — JEM, HRRP, ISAR, size class, rotor modulation and raid count, each
-  with its own range, aspect and dwell rules. A radar doing NCTR looks along a cone; what it
-  holds elsewhere freezes until it is done. You decide the identity; it turns the contact red.
-- **Radars sweep.** Each of your radars refreshes what it holds at its own rate — an AWACS
-  rotodome every 10 s, a carrier's radar every 6 s, a SAM search radar every second or two — so
-  contacts move in steps, and a contact held by several radars updates more often.
-- **One team picture.** Identities and placed threats are shared by every controller of the
-  coalition; F10 marks carry threats to the pilots and bring theirs back as threat rings.
-- **Built from DCS itself.** Maps, airport diagrams, taxiway letters, signs and DCS Satellite
-  imagery come from the controller's own DCS install — on Syria and Caucasus alike — not from a
-  tile server.
-- **ATC and carrier ops, not only GCI.** Runway queues, 10 NM approach, marshal, Case I/II/III,
-  carrier lighting control and graded LSO passes, alongside SRS integration.
-- **Light on the server.** Measured on a busy Foothold mission (Caucasus, ~250 units, 5 blue and
-  18 red radars): about **6 ms of sim-thread time per second (0.6 %)** for everything —
-  picture 2.3 ms, RWR 2.0 ms (since removed), F10 marks 1.2 ms, Foothold 0.3 ms, NCTR 0.1 ms.
+<p align="center">
+<a href="https://github.com/kestrelsnest/overseer-releases/releases"><b>Download</b></a> ·
+<a href="docs/MANUAL.md"><b>Manual</b></a> ·
+<a href="#support-the-project"><b>Support the project</b></a>
+</p>
 
 ---
 
-## Download
+## Why Overseer
 
-Get the latest release from the [Releases page](https://github.com/kestrelsnest/eagles-nest-releases/releases):
-
-| Package | For | What to do |
-|---|---|---|
-| `EaglesNest-Client-<version>.zip` | each controller | unzip, start `Dcb.Client.exe` |
-| `EaglesNest-Pilot-<version>.zip` | pilots who want data cartridges (and F-16 / Hornet pilots who share their targeting pod point) | list your server(s) in `EaglesNest-DTC.lua` (one file covers several), copy it into `Saved Games\DCS\Scripts\Hooks`; optional `EaglesNest-Export.lua` (see `PILOT.txt`) |
-| `EaglesNest-StreamDeck-<version>.zip` | controllers with a Stream Deck | double-click the `.streamDeckPlugin`, then the XL profile |
-| `EaglesNest-Server-<version>.zip` | the DCS server admin | not public: ask the project for it (open an issue) |
-
-Pilots need nothing to fly with a controller: they fly as usual and hear the controller on SRS.
-To receive data cartridges from the DTC tab they add one small hook file, the pilot package.
+- **Real fog of war.** The picture is built on the DCS server from your side's own sensors and
+  sent to your side only. An enemy jet no radar of yours holds never leaves the server.
+- **Radars sweep, identities are earned.** An AWACS refreshes every 10 s, a SAM search radar
+  every second or two. Contacts can arrive as unknowns: you identify them from pilots' RWR calls
+  and NCTR (JEM, HRRP, ISAR, size, rotor, raid count), each with its own range and aspect rules.
+- **Built from DCS itself.** Maps, charts, satellite imagery, airport diagrams and the pilots'
+  data cartridge formats come from the controller's own DCS install — nothing to download.
+- **GCI and ATC in one.** Intercepts and engagement lines next to runway queues, approaches,
+  marshal and LSO grading.
+- **Light on the server.** Measured on two busy Foothold servers: about 3–7 ms of the server's
+  time per second, spread so that no frame carries more than one DCB job; while nobody is
+  controlling, the picture slows to one every 5 s.
 
 ---
 
-## Features
+## Get started
 
-**GCI scope**
-- Per-coalition picture with fog of war: own units in full, enemy aircraft only when own radars see them.
-- Speed vectors, data blocks, threat rings, missiles in flight (own, and enemy ones aimed at you).
-- Bullseye call under the cursor, right-drag ruler with bearing / range / BRAA, coordinates in DDM, DMS, MGRS.
-- Packages (four colour-coded groups), Foothold campaign zones, credits and mission board.
-- Missiles show altitude and Mach; a missile fired at one of your players sounds an alarm and **Space** jumps to it.
-- Flights in formation share one label; labels never cover symbols, vectors or each other and stay steady through turns; contacts near the mouse show their full label; players get a name plate; short tags on any object.
+### Run it on your server (admins)
+1. Download `Overseer-Server-<version>.zip` from the
+   [Releases page](https://github.com/kestrelsnest/overseer-releases/releases).
+2. Stop the DCS server and copy the contents of `copy-into-saved-games` into its Saved Games folder.
+3. Open TCP port 10309 for your controllers.
+4. Start the server. The first start writes `Config\DCB.lua` with a random password.
+5. Give the password to your controllers (or switch on Discord role login).
 
-**Engagements**
-- A left click while right-dragging the ruler pins a BRAA line as an engagement: it follows both aircraft and shows the collision intercept point, time and heading.
-- The Engagements panel lists them with launches at your players on top, an alert distance that sounds a short warning, and markers 1–8: press 1–8 (or a Stream Deck key) and the map shows that engagement.
+### Control (controllers)
+1. Install the [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0) (x64) once.
+2. Download `Overseer-Client-<version>.zip` and start `Dcb.Client.exe`.
+3. Confirm your DCS World install when asked (it must be installed, not running).
+4. Connection → Connect → New: the server's address, port 10309, the password.
+5. Pick your side — then read the [manual](docs/MANUAL.md).
 
-**Pilots' targeting pods**
-- F-16 pilots with the export script share their TGP point and, with an emitter designated on the HAD, its HTS error ellipse and PGM grade (PGM1 with TDOA); every emitter they designate stays on the map for 10 minutes. F/A-18C pilots share their ATFLIR point.
+### Fly with it (pilots)
+Nothing to install to fly with a controller: you hear them on SRS as usual. Two optional extras
+come in `Overseer-Pilot-<version>.zip`:
+- **Data cartridges** (work in progress): add one hook file and your controller can push a complete DTC
+  (waypoints, threats, radios, countermeasures) for the F/A-18C, F-16C or F-14B(U).
+- **Share your targeting pod:** F-16C and F/A-18C pilots can send their TGP / ATFLIR point.
 
-**Stream Deck**
-- Plugin and Stream Deck XL page: engagement keys 1–8 coloured by range, your ten SRS channels with frequency and transmit highlight, labels, label position, GCI/ATC, map filters and a hold-to-show "players only".
+---
 
-**DTC: data cartridges for your pilots**
-- Build whole DCS data cartridges for the **F/A-18C**, **F-16C** and **F-14B(U)** on the map: waypoints and routes with leg distances, GPS / DEST points, threat rings, lines, CAPs, radios, CMDS, RWR, HARM, JDAM targets and more, in DCS's own formats and limits.
-- One plan for all three jets, or each its own. **Push** to pilots or packages: each gets the cartridge of the jet they fly, also in the spawn dialog with dynamic slots.
+## What you get
 
-**RWR, identification and NCTR**
-- **R** over an own aircraft opens its RWR ring, turned with its nose: click 12, 3, 6 or 9 o'clock (or any azimuth) for a bearing line from a pilot's call; two or more lines give a fix with its error ellipse.
-- Data blocks show altitude, speed and Mach.
-- Right-click a contact → *Identify as*: NCTR answers come first, then the RWR labels pilots call.
-- **N** + drag a box: NCTR by your AI radars (JEM, HRRP, ISAR, size, rotor, raid), with cones on the map, the methods being worked flashing beside each contact and the answer or the nearest miss.
-- Server setting `identification = "manual"`: contacts carry no type until a controller identifies them.
+### GCI
+Speed vectors, data blocks with altitude, speed and Mach, threat rings, missiles in flight
+(launches at your players sound an alarm), bullseye under the cursor, a BRAA ruler, packages in
+colour, Foothold campaign zones. Flights in formation share one label; labels never cover a
+symbol, a vector or each other.
+
+### Engagements
+Pin a BRAA line between two aircraft: it follows both and shows the **collision intercept** —
+point, time and heading to fly. The Engagements panel ranks them, sounds a short warning at
+your alert range, and keys 1–8 (or the Stream Deck) jump the map to each one.
+
+![Engagements](docs/images/engagements.png)
+
+### Identification, RWR and NCTR
+An own aircraft's RWR ring turns with its nose: click the clock position a pilot calls for a
+bearing line; two lines give a fix with its error. NCTR by your AI radars works a box you drag,
+with its cones on the map.
 
 | | |
 |---|---|
-| ![RWR ring](docs/images/rwr-ring.png) | ![NCTR](docs/images/nctr-cones.png) |
-| RWR ring with a 3 o'clock bearing line; Mach in the data blocks | NCTR: two carriers' cones on a contact |
+| ![RWR ring](docs/images/rwr-fix.png) | ![NCTR](docs/images/nctr.png) |
+| The RWR ring turns with the jet: a pilot's "3 o'clock" becomes a bearing line | NCTR: the radars' cones on a contact |
 
-**Threats and F10 marks**
-- Place a threat (SA-2 … SA-19, AAA, Patriot …) and its engagement ring appears for every controller of your side.
-- Threats go to the pilots as F10 map marks; any mark a pilot types that names a threat ("SA-11 near the dam") shows up as a ring too.
-- Whether enemy ground units appear on radar at all depends on the mission's era (server setting).
-
-| | |
-|---|---|
-| ![Triangulation](docs/images/triangulation.png) | ![DCS Map](docs/images/dcs-map.png) |
-| Bearing lines, fix and threat ring | DCS Map base map from the controller's own DCS install |
-
-**ATC**
-- Airport diagrams drawn from DCS data: runways, taxiway letters, stands, navaids, tower, in feet.
-- 10 NM approach view with 3° path altitudes, ILS/TACAN, inbound sequence and profile.
-- Runway queue per airfield and carrier (add inbound jets from the map at any range); ATIS and airfield information sent to a pilot's screen.
-- Carrier view (BRC, wind over deck, marshal stack) and LSO view with graded passes.
+### ATC and carrier
+Airport diagrams from DCS data (runways, taxiway letters, stands, navaids), a 10 NM approach
+view with 3° path altitudes, runway queues, ATIS sent to a pilot's screen, the carrier with BRC,
+wind over deck and marshal stack, and LSO grading.
 
 | | | |
 |---|---|---|
 | ![Airport diagram](docs/images/atc-diagram.png) | ![Approach](docs/images/atc-approach.png) | ![Carrier](docs/images/carrier.png) |
-| Airport diagram | 10 NM approach | Carrier and marshal |
+| Airport diagram and runway queue | 10 NM approach | Carrier and marshal |
 
-**Maps and radio**
-- Base maps: Scope, Satellite (online), DCS Map, DCS Charts and DCS Satellite (from your DCS install).
-  The dark Scope map shows faint terrain relief, rivers and main roads for orientation.
-- SRS: tunes your own SRS client (default channels kept for every start), gives SRS your position for range and line of sight (or moves it to the best spot for a player), and listens to the SRS server to show who is on which frequency and who is talking.
-- One Settings window for theme, map data, keys, alarms and SRS.
-- Several windows and screens, dark and light themes, layouts kept between sessions.
+### Data cartridges for your pilots — *work in progress*
+Plan waypoints, routes, threat rings, radios, CMDS, RWR and HARM tables, JDAM targets on the map —
+in DCS's own formats and limits, one plan for all three jets — and push it to a pilot or a
+whole package. Each pilot gets the cartridge of the jet they fly.
 
-![DCS Satellite](docs/images/dcs-satellite.png)
+> The DTC is still being built: it works for the F/A-18C, F-16C and F-14B(U), but expect gaps
+> and changes between releases. Reports from pilots who try it are very welcome.
 
----
+### Maps, radio and the Stream Deck
+- Base maps: Scope, DCS Map, DCS Charts and DCS Satellite from your own install, and online
+  satellite imagery.
+- **SRS:** tunes your SRS client, sends your radio position (or the best spot for a player),
+  and shows who is on which frequency and who is talking.
+- **Stream Deck XL page:** engagements coloured by range, ten SRS channels with transmit
+  highlight, map filters with four brightness steps, labels and a hold-to-show "players only".
 
-## Quick start
-
-**Server admin** (the server package is sent on request; details in `INSTALL.txt` inside it)
-1. Stop the DCS server and copy the contents of `copy-into-saved-games` into its Saved Games folder.
-2. Open TCP port 10309 for the controllers.
-3. Start the server. The first start writes `Config\DCB.lua` with a random server password: give it to your controllers (Discord role login is optional).
-
-**Controller** (details in `CLIENT.txt` inside the zip)
-1. Install the [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/10.0) (x64) once.
-2. Start `Dcb.Client.exe`. On the first start it finds your DCS World install and asks you to confirm it.
-3. Connection → Connect → New: server address, port 10309, the server password; then choose Blue or Red.
-
-Then read the **[Operations manual](docs/MANUAL.md)**.
+| | |
+|---|---|
+| ![Map styles](docs/images/maps.png) | ![Stream Deck](docs/images/streamdeck.png) |
+| DCS Map, Charts and Satellite from your install | The Stream Deck XL page |
 
 ---
 
-## Documentation
+## Home servers
 
-- [Operations manual](docs/MANUAL.md): maps, keys, GCI, RWR, identification, NCTR, ATC, carrier, SRS, server settings.
-- Questions and bug reports: open an issue here.
+Overseer is built and run on the **Kestrel's Nest** servers — come and see it live.
+
+**Running Overseer on your server?** [Tell us](https://github.com/kestrelsnest/overseer-releases/issues)
+and you can be listed here.
+<!-- Servers on the Patreon "Server" tier are listed here. -->
+
+---
+
+## Support the project
+
+Overseer is free, and it stays free — every feature, for every server.
+A Patreon page and a Ko-fi coffee button are coming soon for those who want to help keep it going.
+
+Bug reports and ideas are welcome: [open an issue](https://github.com/kestrelsnest/overseer-releases/issues).
+
+---
+
+## Coming from Eagle's Nest?
+
+Overseer is the same project under its new name (0.15.1 on). The server and the client simply
+update. What was installed under the old name:
+- **Pilots:** replace `Scripts\Hooks\EaglesNest-DTC.lua` with `Overseer-DTC.lua` (copy your
+  server lines over) and, with designations, `EaglesNest-Export.lua` with `Overseer-Export.lua`
+  plus its line in `Export.lua`. Cartridges are now saved as `Overseer_<jet>.dtc`; the old
+  `EaglesNest_*.dtc` files can go. The old hook keeps working with Overseer servers meanwhile.
+- **Stream Deck:** remove the old "Eagle's Nest" plugin in Stream Deck, install the Overseer
+  plugin and import the `Overseer` page — keys from the old page don't carry over.
 
 ---
 
@@ -152,13 +155,18 @@ Then read the **[Operations manual](docs/MANUAL.md)**.
 
 The connection is plain TCP: passwords and the picture are not encrypted on the way. Limit the
 firewall rule to your controllers' addresses or use a VPN (Tailscale, ZeroTier, WireGuard).
-Controller actions on the server are a short fixed list, checked, rate-limited and logged.
-**Controllers don't fly:** the server refuses a controller login from the address of a player
-sitting in a cockpit and closes it when that address takes one, so a pilot cannot watch the
-coalition's picture while flying. For server admins: also set `allow_object_export = false`
-and `allow_sensor_export = false` in DCS's own server settings; Eagle's Nest does not need them.
+Controller actions on the server are a short, checked, rate-limited and logged list, and
+**controllers don't fly**: the server refuses a controller login from the address of a player
+in a cockpit. Also set `allow_object_export = false` and `allow_sensor_export = false` in DCS's
+own server settings; Overseer does not need them.
 
 ## License
 
-[MIT](LICENSE) © 2026 Bullat951. Third-party components and data: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
-DCS World is a trademark of Eagle Dynamics SA; Eagle's Nest is an independent community project.
+Overseer by Kestrel's Nest Community, © 2026 Bullat951, is free software under the
+[GNU GPL v3](LICENSE) with [additional permissions](LICENSE-EXCEPTION.md) (AvalonDock's MS-PL,
+DCS World), from version 0.15.1; versions up to 0.15.0 were released as Eagle's Nest under MIT. Contributions: see
+[CONTRIBUTING.md](CONTRIBUTING.md). Third-party components and data:
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+DCS World is a trademark of Eagle Dynamics SA. Overseer is an independent community project,
+not affiliated with or endorsed by Eagle Dynamics.

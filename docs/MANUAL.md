@@ -1,4 +1,4 @@
-# Eagle's Nest — operations manual
+# Overseer — operations manual
 
 For controllers (GCI and ATC). Server installation is in `INSTALL.txt` inside the server zip.
 
@@ -31,7 +31,7 @@ For controllers (GCI and ATC). Server installation is in `INSTALL.txt` inside th
 
    ![DCS location](images/dcs-location.png)
 4. **Connection → Connect…**: pick a server from the list and **Connect** (or double-click
-   it). **New** adds one: a name, its address, the Eagle's Nest port and the SRS port, the
+   it). **New** adds one: a name, its address, the Overseer port and the SRS port, the
    server password (from the admin) and your SRS External AWACS Mode password. Connect saves a
    named server; **Delete** forgets it. Saved passwords are kept encrypted for your Windows user
    and show as "(saved)": type in the box only to change one.
@@ -84,7 +84,10 @@ a flight "2× F16C 250"; none — whatever is set, every contact within 10 NM of
 their name on a plate in the aircraft's colour, above the type and altitude. **Threat rings**, **F10 marks**, **TGP** (pilots'
 designations, section 5), **Zones**,
 **Airfields**, **Ground units**, **Landed** aircraft, and **Brightness** of the base map
-(symbols stay bright). **Fit picture** zooms to everything you see.
+(symbols stay bright). Ground units, Landed, Threat rings, F10 marks, TGP, Zones and Airfields have
+four stages: **click** steps off → 30 % → 60 % → 100 % → off, **right click** turns the filter on/off
+(keeping its stage), the **mouse wheel** makes it brighter or dimmer; a dimmed filter shows its
+stage on the box ("Zones 60%"). **Fit picture** zooms to everything you see.
 
 ## 4. Keys and mouse
 
@@ -137,7 +140,7 @@ select and move the map; right-click always opens the menu.
   sessions. The banner and ring show with the sound off too. *For AI aircraft too* includes AI
   aircraft (for testing; off again at the next start).
 - **Pilots' designations (TGP)**: switch a map's **TGP** button on to listen. F-16 and F/A-18C
-  pilots with the Eagle's Nest pilot hook and its export script (pilot zip, PILOT.txt) send what
+  pilots with the Overseer pilot hook and its export script (pilot zip, PILOT.txt) send what
   their targeting pod is looking at, every 3.5 s: a cyan diamond with "Kestrel · TGP POINT · 0:20"
   (a Hornet's ATFLIR: "Hornet · FLIR SCENE · 0:05", only while the pod tracks) and its
   bullseye call. With an emitter designated on their HAD page the pod slaves to it and the HTS
@@ -251,13 +254,13 @@ note (only you see it); *Delete threat* removes it. Bearing lines stay your own.
 - **Send to F10 map** (a threat) or **Add F10 mark here…** (any text, right-click the map) puts
   a mark on your coalition's F10 map in the game. Pilots can delete or edit it there.
 - **Marks are the live threats.** Every mark whose text starts with a threat type — sent from
-  Eagle's Nest or typed by a pilot on the F10 map ("SA-11", "sa6 by the river") — is drawn as a
+  Overseer or typed by a pilot on the F10 map ("SA-11", "sa6 by the river") — is drawn as a
   threat with its ring on every controller's screen, also for a controller who connects later.
-  When a pilot deletes the mark, the threat disappears from Eagle's Nest too.
+  When a pilot deletes the mark, the threat disappears from Overseer too.
 - Other marks show as pins with their text: **green** from players (e.g. a downed pilot),
-  **white** from the mission's scripts, **red** from Eagle's Nest. Foothold's zone labels are
+  **white** from the mission's scripts, **red** from Overseer. Foothold's zone labels are
   hidden. The **F10 marks** toolbar toggle hides them all.
-- *Remove from F10 map* works on marks Eagle's Nest made; pilots' own marks are theirs to delete.
+- *Remove from F10 map* works on marks Overseer made; pilots' own marks are theirs to delete.
 
 ## 8. ATC
 
@@ -297,8 +300,8 @@ Pick a carrier in the ATC list.
 
 ## 10. SRS
 
-Eagle's Nest works with the SRS client on your PC the way other controller tools do: your SRS
-client runs in **External AWACS Mode**. With the EAM password in the Connect dialog, Eagle's Nest
+Overseer works with the SRS client on your PC the way other controller tools do: your SRS
+client runs in **External AWACS Mode**. With the EAM password in the Connect dialog, Overseer
 does that for you when it connects: it starts the SRS app if needed, enters the server address
 (the DCB server's, at the SRS port), clicks Connect, opens External AWACS Mode, enters the
 password and connects — you see it happen in the SRS window. An SRS already connected to another
@@ -319,9 +322,9 @@ the status bar at the bottom (click it for Settings → SRS).
   shadows — and a dashed circle at the radio horizon. It follows a carrier or AWACS as it moves.
 - **Tuning**: type a frequency or use the airfield's tower frequencies. Channel plan: CH6 = ATC,
   CH7–CH10 = packages P1–P4 (set from the Packages panel), CH1–5 free. **Save as default** keeps
-  your ten channels: whenever the SRS app connects, Eagle's Nest tunes them in instead of the
+  your ten channels: whenever the SRS app connects, Overseer tunes them in instead of the
   app's own presets.
-- **Listen**: Eagle's Nest can also join the SRS server itself, receive-only (others see
+- **Listen**: Overseer can also join the SRS server itself, receive-only (others see
   "DCB (listen)"). It then lists your coalition's frequencies and who is on each, marks who is
   talking (in the list and with pulsing rings on the map), and right-clicking a player offers
   their radios to tune yours to. Enter the SRS port and your coalition's External AWACS Mode
@@ -342,27 +345,36 @@ the status bar at the bottom (click it for Settings → SRS).
 
 ### Stream Deck
 
-The **Eagle's Nest** Stream Deck plugin (`EaglesNest-StreamDeck-<version>.zip`: double-click the
+The **Overseer** Stream Deck plugin (`Overseer-StreamDeck-<version>.zip`: double-click the
 `.streamDeckPlugin` to install it) talks to the client on this PC (`localhost:47810`, Settings
-file `DeckPort`). Double-click **Eagle's Nest.streamDeckProfile** to import the Stream Deck XL page:
+file `DeckPort`). Double-click **Overseer.streamDeckProfile** to import the Stream Deck XL page:
 
 | Row | Keys |
 |---|---|
 | 1 | **Engagements 1–8**: the line with that marker — range, ⚑ alert, target; green far, amber within its Alert + 10 NM (no alert: 20–40 NM), red inside (blinking); press: the map shows both ends |
 | 2 | **CH1–CH5**, **Labels** (Full → Short → None), **Label pos**, **GCI / ATC** |
 | 3 | **CH6–CH10** (frequency, role badge: ATC green, packages in their colours; orange frame = selected, pulsing red = transmitting; press: transmit), **Players only** (hold: GCI maps show only people's aircraft) |
-| 4 | **Filters**: Ground, Landed, Threat rings, F10 marks, TGP, Zones, Airfields (lit when on) |
+| 4 | **Filters**: Ground, Landed, Threat rings, F10 marks, TGP, Zones, Airfields — press: off → 30 % → 60 % → 100 %; the key is brighter with each stage |
 
 Labels, label position, filters and Players only act on every GCI map. Keys can also be placed by
-hand from the *Eagle's Nest* category (Engagement, SRS channel and Map filter keys pick their number
+hand from the *Overseer* category (Engagement, SRS channel and Map filter keys pick their number
 or filter in the key's settings). With the client closed the keys say "DCB offline".
 
 ## 12. DTC: data cartridges for pilots
 
+> **Work in progress.** The DTC works for the F/A-18C, F-16C and F-14B(U), but it is still being
+> built: expect gaps and changes between releases, and check a pushed cartridge in the jet
+> before relying on it. Reports are welcome.
+
 The **DTC** tab builds whole DCS data cartridges for the **F/A-18C**, **F-16C** and **F-14B(U)**
-and pushes them to your pilots. Pilots need the Eagle's Nest DTC hook (`EaglesNest-Pilot` zip on
-the releases page, with your server's line filled in; one hook covers every Eagle's Nest server
+and pushes them to your pilots. Pilots need the Overseer DTC hook (`Overseer-Pilot` zip on
+the releases page, with your server's line filled in; one hook covers every Overseer server
 a pilot flies on); nothing changes for them until you push.
+
+The tab needs **DCS World installed on your PC** (it doesn't have to run): each jet's defaults,
+limits, threat lists and countermeasure programs are made from your own install by DCS's own
+cartridge code the first time you open the tab, and again after a DCS update. Without DCS, or
+without a jet's files, the tab says so for that jet.
 
 - **The jet picker** switches between the three cartridges; each jet keeps its own. **New**
   starts all three from DCS's defaults; **Open…** / **Save as…** read and write `.dtc` files
@@ -388,9 +400,9 @@ a pilot flies on); nothing changes for them until you push.
   zones, CMDS, TIS. Formats and limits are DCS's own.
 - **Send to** + **Push**: tick pilots (or packages); each gets the cartridge of the jet they fly,
   and a pilot still in the spawn dialog (dynamic slots) gets all three. It replaces their
-  EaglesNest cartridge, arrives within about 10 s per jet, and a pilot already in the air sees a
+  Overseer cartridge, arrives within about 10 s per jet, and a pilot already in the air sees a
   short message. The pilot loads it with **DTC** in the spawn dialog or briefing:
-  `EaglesNest_FA-18C_hornet`, `EaglesNest_F-16C_50` or `EaglesNest_F-14BU`.
+  `Overseer_FA-18C_hornet`, `Overseer_F-16C_50` or `Overseer_F-14BU`.
 
 ## 13. For the server admin
 
@@ -413,8 +425,13 @@ a pilot flies on); nothing changes for them until you push.
   - `nctr_year = 1985`: NCTR methods other than size class only in missions dated then or later.
   - `radar_scan = true`: each own radar refreshes its contacts at its own scan rate (section 5);
     `false`: every contact every second.
+  - `idle_interval = 5`: while none of a side's controllers is logged in, that side's picture is
+    built every 5 s instead of every second (a server is unwatched most of the day); a login gets
+    a fresh picture at once and every second from then on. Pilots' DTC threats are then at most
+    5 s older. `0`: always every second. Needs a DLL with this feature (an older DLL keeps every
+    second).
   - `dtc = true`: pilot sync — controllers can push data cartridges (section 12) to pilots who
-    have the DTC hook (`EaglesNest-DTC.lua` from the `EaglesNest-Pilot` zip on the releases
+    have the DTC hook (`Overseer-DTC.lua` from the `Overseer-Pilot` zip on the releases
     page, your server's address set in it, copied into their `Saved Games\DCS\Scripts\Hooks`).
     `false` switches it off.
   - `allow_flying_controllers = false`: **controllers don't fly** — a controller login from the
@@ -424,7 +441,7 @@ a pilot flies on); nothing changes for them until you push.
     pilots do (or for testing on your own PC).
   - `analytics`, `export`: local files for statistics and a website (see
     [ANALYTICS.md](ANALYTICS.md)). Nothing is sent anywhere.
-- Everything Eagle's Nest does on the server is logged in `Logs\dcs.log` under "DCB": logins,
+- Everything Overseer does on the server is logged in `Logs\dcs.log` under "DCB": logins,
   every controller command (text to a pilot, F10 marks) and refusals.
 - Cost: well under 1 % of one CPU core, about 22 MB of memory, and 15–40 KB/s per connected
   controller after a one-off 12 MB download on login.
